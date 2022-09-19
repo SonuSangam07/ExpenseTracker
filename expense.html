@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Expense</title>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/axios/0.27.2/axios.min.js"></script>
+    <script src="expense.js"></script>
+</head>
+<body>
+   <form onsubmit="expenseDetails(event)">
+    <label>Choose expenseamount</label>
+    <input id='expenseamount'type="number" name="expenseamount" required/>
+    <label>Choose description</label>
+    <input id='description'type="text" name="description" required>
+    <label>Choose a category</label>
+    <select name="category" id="category">
+        <option value="fuel">Fuel</option>
+        <option value="food">Food</option>
+        <option value="electricity">Electricity</option>
+        <option value="movie">Movie</option>
+    </select>
+    <button>Add Expense</button>
+
+</form> 
+<ul id="ul"></ul>
+</body>
+</html>
