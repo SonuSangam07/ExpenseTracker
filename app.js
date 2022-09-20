@@ -12,12 +12,19 @@ const sequelize = require('./util/database');
 
 app.use(bodyParser.json());
 
+const User = require('./models/user')
+
+const Expense = require('./models/expense')
+
+User.hasMany(Expense)
+Expense.belongsTo(User)
+
 const userRoute = require('./routes/user')
 const expenseRoute=require('./routes/expense')
 
 app.use('/users',userRoute)
 app.use('/expense',expenseRoute)
-sequelize.sync({force:true})
+sequelize.sync()
 .then(result=>{
     app.listen(3000)
 })

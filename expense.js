@@ -5,9 +5,11 @@ let expenseDetails = {
     amount: document.getElementById("expenseamount").value,
     description: document.getElementById("description").value,
     category: document.getElementById("category").value,
+    userId:1
   };
 console.log(expenseDetails);
-const data=await axios.post("http://localhost:3000/expense/addexpense", expenseDetails)
+const token=localStorage.getItem('token')
+const data=await axios.post("http://localhost:3000/expense/addexpense", expenseDetails,{headers:{"Authorization": token}})
 if(data.status===201){
     console.log(data.data);
       alert(data.data.message)
@@ -30,8 +32,11 @@ function addonScreen(expense){
 d.innerHTML=d.innerHTML + li
    }
    window.addEventListener('DOMContentLoaded',()=>{
-    axios.get("http://localhost:3000/expense/getexpense")
+    const token=localStorage.getItem('token')
+    console.log(token)
+    axios.get("http://localhost:3000/expense/getexpense",{headers: {"Authorization": token}} )
     .then(response=>{
+        console.log(response)
         response.data.expenses.forEach(expense=>{
             addonScreen(expense)
         })
@@ -39,7 +44,8 @@ d.innerHTML=d.innerHTML + li
    })
 
    function deleteUser(expenseid){
-    axios.delete(`http://localhost:3000/expense/deleteuser/${expenseid}`).then(()=>{
+    const token=localStorage.getItem('token')
+    axios.delete(`http://localhost:3000/expense/deleteuser/${expenseid}`,{headers: {"Authorization": token}}).then(()=>{
         removeuserfromScreen(expenseid);
         console.log('done')
     })
@@ -48,5 +54,4 @@ d.innerHTML=d.innerHTML + li
    function removeuserfromScreen(expenseid){
 const expenseElemid=`expense-${expenseid}`
 document.getElementById(expenseElemid).remove();
-   
-}
+   }

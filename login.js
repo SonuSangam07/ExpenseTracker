@@ -13,6 +13,7 @@ const data=await axios.post('http://localhost:3000/users/login',logindetails)
 
    if(data.status==200){
     alert(data.data.message)
+    localStorage.setItem('token',data.data.token);
     window.location.href='./expense.html'
    }
    else{
