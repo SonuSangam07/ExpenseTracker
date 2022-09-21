@@ -24,7 +24,7 @@ exports.addExpense = (req,res,next) => {
 exports.showExpense = (req,res,next)=>{
     Expense.findAll({where:{userId: req.user.id}})
     .then(expenses=>{
-        console.log(expenses);
+       
         return res.status(200).json({expenses,success:true})
     })
 }
