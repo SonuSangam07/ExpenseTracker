@@ -76,8 +76,10 @@ document.getElementById(expenseElemid).remove();
      "handler": function (response) {
          console.log(response);
          axios.post('http://localhost:3000/purchase/updatetransactionstatus',{
+            
              order_id: options.order_id,
              payment_id: response.razorpay_payment_id,
+             
          }, { headers: {"Authorization" : token} }).then(() => {
              alert('You are a Premium User Now')
          }).catch(() => {

@@ -24,7 +24,7 @@ const purchasepremium =async (req, res) => {
         })
     } catch(err){
         console.log(err);
-        res.status(403).json({ message: 'Sometghing went wrong', error: err})
+        res.status(403).json({ message: 'Something went wrong', error: err})
     }
 }
 
@@ -32,8 +32,13 @@ const purchasepremium =async (req, res) => {
     try {
         const { payment_id, order_id} = req.body;
         Order.findOne({where : {orderid : order_id}}).then(order => {
+
             order.update({ paymentid: payment_id, status: 'SUCCESSFUL'}).then(() => {
-                return res.status(202).json({sucess: true, message: "Transaction Successful"});
+                console.log('aaaaaaaaaaaaaaaa')
+                req.user.update({ ispremiumuser: true });
+                return res.status(202).json({sucess: true, message: "Transaction Successful"})
+                
+                ;
             }).catch((err)=> {
                 throw new Error(err);
             })
