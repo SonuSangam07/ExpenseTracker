@@ -7,25 +7,37 @@
     <title>Expense</title>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/axios/0.27.2/axios.min.js"></script>
     <script src="expense.js"></script>
+    <link rel="stylesheet" href="style.css">
+    <nav class="nav">
+        <h1 id="expnav">Expense Tracker</h1>
+
+    </nav>
 </head>
 <body>
+    <div class="wrapper">
+        <h1 id="headexp">Add Your Expense <style></style></h1>
+        <hr width="100%" size="6px" >
    <form onsubmit="expenseDetails(event)">
-    <label>Choose expenseamount</label>
+    <label class="label" id="amnt">Choose expenseamount</label>
     <input id='expenseamount'type="number" name="expenseamount" required/>
-    <label>Choose description</label>
+    <label class="label" id="desc">Choose description</label>
     <input id='description'type="text" name="description" required>
-    <label>Choose a category</label>
+    <label  class="label" id="cate">Choose a category</label>
     <select name="category" id="category">
         <option value="fuel">Fuel</option>
         <option value="food">Food</option>
         <option value="electricity">Electricity</option>
         <option value="movie">Movie</option>
     </select>
-    <button>Add Expense</button>
+    <button id="addexpense">Add Expense</button>
 
 </form> 
 <ul id="ul"></ul>
 <button id="premiumbtn" onclick="gopremium(event)">Go Premium</button>
+<ul id="pop">
+
+</ul>
+</div>
 <script src="https://checkout.razorpay.com/v1/checkout.js"></script>
 </body>
 </html>

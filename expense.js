@@ -37,6 +37,11 @@ d.innerHTML=d.innerHTML + li
    
     axios.get("http://localhost:3000/expense/getexpense",{headers: {"Authorization": token}} )
     .then(response=>{
+       if(response.data.user.ispremiumuser===true){
+        let pop = document.getElementById("pop");
+        let btn = `<a href="./premiumexpense.html"id="popbtn">See Premium Facility</a>`;
+        pop.innerHTML += btn;
+       }
         
         response.data.expenses.forEach(expense=>{
             addonScreen(expense)
