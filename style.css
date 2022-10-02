@@ -28,11 +28,17 @@ margin: 0 25%;
 }
 #popbtn{
     background-color: white;
-    height: 55px;
-    width: 165px;
-    border: 1px solid black;
-    margin-right: 2.5rem;
-    text-decoration: none;
+    border:2px solid black;
+    border-radius: 3px;
+    
+    color: black;
+    height: 40px;
+                width: 170px;
+                background-color:white;
+                color :rgb(113, 23, 23);
+                position: fixed;
+                top: 40px;
+                right: 50px;
   }
 
   #exppre{
@@ -133,13 +139,16 @@ font-size: 20px;
     display: block;
     margin-bottom: 0.5rem;
     font-size: 22.5px;
+    margin: 8px;
+    
  }
  .nav{
-    background-color: rgb(15, 31, 207);
-    height: 200px;
+   
+    background-color: rgb(101, 101, 122);
+    height: 100px;
     display: flex;
     justify-content: center;
-    font-size: 50px;
+    font-size: 40px;
 }
 #addexpense{
     background-color: black;
@@ -209,4 +218,44 @@ font-size: 20px;
             color: black;
             font-weight: bold;
             font-size: 20px;
+            }
+            .formitem{
+                margin: 8px;
+            }
+            #premiumbtn{
+                height: 40px;
+                width: 100px;
+                background-color: rgb(238, 238, 244);
+                color :rgb(112, 18, 18);
+                position: fixed;
+                top: 5px;
+                right:50px;
+            }
+            #downloadexpense{
+                height: 40px;
+                width: 70px;
+                background-color:white;
+                color :rgb(113, 23, 23);
+                position: fixed;
+                top: 5px;
+                right: 150px;
+            }
+            .expenseform{
+                background-color: rgb(81, 40, 40);
+                color:white;
+                border: 2px white;
+                border-radius: 5px;
+                width: fit-content;
+                text-align: center;
+                
+            }
+            .expenses{
+                display: flex;
+                border-radius: 5px;
+                margin:5px;
+                padding: 5px;
+                background-color: white;
+                color:black;
+                width: fit-content;
+                border-radius: 10px;
             }

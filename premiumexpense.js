@@ -4,7 +4,7 @@ window.addEventListener("DOMContentLoaded", () => {
     axios
       .get("http://localhost:3000/expense/getallusers")
       .then((response) => {
-        //   console.log(response);
+  console.log(response);
         for (let i = 0; i < response.data.users.length; i++) {
           let userid = response.data.users[i].id;
           let name = response.data.users[i].name;
