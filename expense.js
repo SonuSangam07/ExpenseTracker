@@ -1,15 +1,19 @@
 const token = localStorage.getItem('token');
+const expensecontainer=document.getElementById("expenses")
+
 async function expenseDetails(event){
 event.preventDefault();
+const expensecontainer=document.getElementById("expenses")
 
 let expenseDetails = {
     amount: document.getElementById("expenseamount").value,
     description: document.getElementById("description").value,
     category: document.getElementById("category").value,
-    userId:1
+    
   };
 
 const token=localStorage.getItem('token')
+
 const data=await axios.post("http://localhost:3000/expense/addexpense", expenseDetails,{headers:{"Authorization": token}})
 if(data.status===201){
    
@@ -23,33 +27,146 @@ addonScreen(data.data.expense);
 }
 function addonScreen(expense){
     
-    const d=document.getElementById('ul')
+    const d=document.getElementById('expenses')
+    d.classList.add('expensediv')
     const p=`expense-${expense.id}`
+    
+    
   
-    const li= `<li id="${p}" class="expenses"> ${expense.amount}--${expense.description}--${expense.category}
+   const li= `<li id="${p}" class="expenses"> ${expense.amount}--${expense.description}--${expense.category}
      
      <button onclick = deleteUser('${expense.id}') style="color:white;background-color:rgb(24,31,46)"> Delete </button> 
       </li>`
-d.innerHTML=d.innerHTML + li
+d.innerHTML+=li;
    }
-   window.addEventListener('DOMContentLoaded',()=>{
+
+// Refreshing the page
+   window.addEventListener('DOMContentLoaded',(e)=>{
     const token=localStorage.getItem('token')
+    const pagination=document.getElementById("pagination");
+    console.log(pagination)
+   pagination.innerHTML=""
+   const expensecontainer=document.getElementById("expenses")
+   expensecontainer.innerHTML=""
    
-    axios.get("http://localhost:3000/expense/getexpense",{headers: {"Authorization": token}} )
-    .then(response=>{
-       if(response.data.user.ispremiumuser===true){
+    axios.get("http://localhost:3000/expense/getexpense/?page=1",{headers: {"Authorization": token}} )
+    .then(expenses=>{
+        console.log(expenses.data.user);
+       if(expenses.data.user.ispremiumuser===true){
         let pop = document.getElementById("pop");
         let btn = `<a href="./premiumexpense.html"id="popbtn">See Premium Facility</a>`;
         pop.innerHTML += btn;
        }
+       const pages=expenses.data.obj
+        if(pages.currentpage!=1 && pages.previouspage!=1){
+            const newpg=document.createElement("a");
+            newpg.setAttribute('id','1')
+            newpg.setAttribute("class","page")
+            newpg.innerText="1";
+            pagination.appendChild(newpg)
+
+        }
+        if(pages.haspreviouspage){
+            const newpg2=document.createElement("a")
+            newpg2.setAttribute("class","page")
+            newpg2.setAttribute("id",`${pages.previouspage}`)
+            newpg2.innerText=`${pages.previouspage}`
+            pagination.appendChild(newpg2);
+        }
+
+        const newpg1=document.createElement("a")
+        newpg1.setAttribute("id",`${pages.currentpage}`)
+        newpg1.setAttribute("class","page")
+        newpg1.innerText=`${pages.currentpage}`
+        pagination.appendChild(newpg1)
+
+        if(pages.hasnextpage){
+            console.log("i am has next page>>>>>>>>>>>>>>>>>>>>>>>")
+            const newpg3=document.createElement("a")
+            newpg3.setAttribute("class","page")
+            newpg3.setAttribute("id",`${pages.nextpage}`)
+            newpg3.innerText=`${pages.nextpage}`
+            pagination.appendChild(newpg3);
+        }
+        if(pages.lastpage !== pages.currentpage && pages.nextpage!==pages.lastpage){
+            const newpg4=document.createElement("a")
+            newpg4.setAttribute("class","page")
+            newpg4.setAttribute("id",`${pages.lastpage}`)
+            newpg4.innerText=`${pages.lastpage}`
+            pagination.appendChild(newpg4);
+        }
+
+        const pageevent=document.getElementById("pagination")
+        pageevent.addEventListener("click",(e)=>{
+            const pagenation=document.getElementById("pagination");
+            if(e.target.className=="page"){
+                const UserId=e.target.id
+                pagenation.innerHTML=""
+                expensecontainer.innerHTML=""
+                axios
+            .get(`http://localhost:3000/expense/getexpense/?page=${UserId}`,{headers:{"Authorization":token}})
+            .then((expenses)=>{
+                console.log(expenses.data.obj)
+                const pages=expenses.data.obj
+                if(pages.currentpage!=1 && pages.previouspage!=1){
+                    const newpg=document.createElement("a");
+                    newpg.setAttribute('id','1')
+                    newpg.setAttribute("class","page")
+                    newpg.innerText="1";
+                    pagination.appendChild(newpg)
         
-        response.data.expenses.forEach(expense=>{
-            addonScreen(expense)
+                }
+                if(pages.haspreviouspage){
+                    const newpg2=document.createElement("a")
+                    newpg2.setAttribute("class","page")
+                    newpg2.setAttribute("id",`${pages.previouspage}`)
+                    newpg2.innerText=`${pages.previouspage}`
+                    pagination.appendChild(newpg2);
+                }
+        
+                const newpg1=document.createElement("a")
+                newpg1.setAttribute("id",`${pages.currentpage}`)
+                newpg1.setAttribute("class","page")
+                newpg1.innerText=`${pages.currentpage}`
+                pagination.appendChild(newpg1)
+        
+                if(pages.hasnextpage){
+                    const newpg3=document.createElement("a")
+                    newpg3.setAttribute("class","page")
+                    newpg3.setAttribute("id",`${pages.nextpage}`)
+                    newpg3.innerText=`${pages.nextpage}`
+                    pagination.appendChild(newpg3);
+                }
+                if(pages.lastpage !== pages.currentpage && pages.nextpage!==pages.lastpage){
+                    const newpg4=document.createElement("a")
+                    newpg4.setAttribute("class","page")
+                    newpg4.setAttribute("id",`${pages.lastpage}`)
+                    newpg4.innerText=`${pages.lastpage}`
+                    pagination.appendChild(newpg4);
+                }
+                const UserExpenses=expenses.data.expenses;
+                console.log(UserExpenses);
+                expenses.data.expenses.forEach(expense=>{
+                    addonScreen(expense)
+                })
+              
+        
+        
+            })
+            .catch(err=>console.log(err))
+        
+  
+            }
+        
         })
+
+       expenses.data.expenses.forEach(expense=>{
+            addonScreen(expense)
+       })
     })
    })
-
-   function deleteUser(expenseid){
+//deleting the user
+function deleteUser(expenseid){
     const token=localStorage.getItem('token')
     axios.delete(`http://localhost:3000/expense/deleteuser/${expenseid}`,{headers: {"Authorization": token}}).then(()=>{
         removeuserfromScreen(expenseid);
@@ -57,10 +174,11 @@ d.innerHTML=d.innerHTML + li
     })
 
    }
+
    function removeuserfromScreen(expenseid){
-const expenseElemid=`expense-${expenseid}`
-document.getElementById(expenseElemid).remove();
-   }
+    const expenseElemid=`expense-${expenseid}`
+    document.getElementById(expenseElemid).remove();
+       }
    async function gopremium(event){
     const response  = await axios.get('http://localhost:3000/purchase/premiummembership', { headers: {"Authorization" : token} });
     console.log('!!!!!!!!!!!',response);
@@ -125,3 +243,8 @@ function download(){
         showError(err)
     });
 }
+
+function signout(){
+    window.location.replace('/login.html')
+}
+

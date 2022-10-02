@@ -7,7 +7,7 @@ sign{
     margin-right: 35%;
     height: 12.5rem;
     border-radius: 5px;
-    background-color: rgb(80, 23, 202);
+    background-color: rgb(52, 2, 38);
 }
 
 .signhead{
@@ -28,11 +28,17 @@ margin: 0 25%;
 }
 #popbtn{
     background-color: white;
-    height: 55px;
-    width: 165px;
-    border: 1px solid black;
-    margin-right: 2.5rem;
-    text-decoration: none;
+    border:2px solid black;
+    border-radius: 3px;
+    
+    color: black;
+    height: 40px;
+                width: 170px;
+                background-color:white;
+                color :rgb(113, 23, 23);
+                position: fixed;
+                top: 40px;
+                right: 50px;
   }
 
   #exppre{
@@ -133,10 +139,13 @@ font-size: 20px;
     display: block;
     margin-bottom: 0.5rem;
     font-size: 22.5px;
+    margin: 8px;
+    
  }
  .nav{
-    background-color: rgb(15, 31, 207);
-    height: 200px;
+   
+    background-color: rgb(101, 49, 215);
+    height: 150px;
     display: flex;
     justify-content: center;
     font-size: 50px;
@@ -163,9 +172,9 @@ font-size: 20px;
             border: 1px solid black;
             margin-left: 35%;
             margin-right: 35%;
-            height: 12.5rem;
+            height: 22.5rem;
             border-radius: 5px;
-            background-color: rgb(9, 29, 211);
+            background-color: rgb(228, 28, 243);
         }
         .loginForm{
             display: flex;
@@ -174,9 +183,9 @@ font-size: 20px;
             border: 1px solid black;
             margin-left: 35%;
             margin-right: 35%;
-            height: 12.5rem;
+            height: 16 rem;
             border-radius: 5px;
-            background-color: rgb(11, 49, 216);
+            background-color: rgb(110, 10, 90);
         
         }
         #loginBtn{
@@ -206,7 +215,95 @@ font-size: 20px;
         }
         #anchorSign{
             text-decoration: none;
-            color: black;
+            color: rgb(244, 235, 235);
             font-weight: bold;
             font-size: 20px;
+            }
+            .formitem{
+                margin: 8px;
+            }
+            #premiumbtn{
+                height: 40px;
+                width: 100px;
+                background-color: rgb(238, 238, 244);
+                color :rgb(112, 18, 18);
+                position: fixed;
+                top: 5px;
+                right:50px;
+            }
+            #downloadexpense{
+                height: 40px;
+                width: 70px;
+                background-color:white;
+                color :rgb(113, 23, 23);
+                position: fixed;
+                top: 5px;
+                right: 150px;
+            }
+            .expenseform{
+                background-color: rgb(81, 40, 40);
+                color:white;
+                border: 2px white;
+                border-radius: 5px;
+                width: fit-content;
+                text-align: center;
+                
+            }
+            .expenses{
+                display: flex;
+                border-radius: 5px;
+                margin:5px;
+                padding: 2px;
+                background-color: rgb(189, 173, 173);
+                color:black;
+                height:  fit-content;
+                border-radius: 10px;
+                border:2px solid black ;
+    
+    font-family: 'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;
+            }
+            #pagenation{
+                display: flex;
+            }
+            .page{
+                border: 1px solid red;
+                width: fit-content;
+                height: fit-content;
+                background-color: white;
+                color:black;
+               margin:5px;
+            
+            
+            }
+            #expenses{
+                display: block;
+                color:rgb(198, 180, 180);
+                background-color: rgb(34, 182, 18);
+            }
+            .expensediv{
+                display: block;
+                border-radius: 5px;
+                margin:5px;
+                padding: 5px;
+                background-color: white;
+                color:rgb(176, 18, 18);
+                width: fit-content;
+                border-radius: 10px;
+            }
+            .wrapper{
+               display: block;
+                background-image: url("https://wallpaperaccess.com/full/6080815.jpg");
+                height:100%;
+            }
+            body
+            {
+height: 100%;
+width: 100%;
+background-size: cover;
+position:absolute;
+background-image: url("https://i.pinimg.com/originals/24/80/13/2480139b77228fea50b9be5da217305e.jpg");
+            }
+            #headexp{
+                font-size: large;
+                background-color: rgb(78, 22, 210);
             }

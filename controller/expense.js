@@ -1,7 +1,8 @@
 const Expense = require('../models/expense')
 const User = require('../models/user')
 const AWS=require('aws-sdk');
-exports.addExpense = (req,res,next) => {
+const items_perpage=2;
+exports.addExpense = async (req,res,next) => {
     const {amount,description,category} = req.body
     if(amount == undefined || amount.length === 0 
         || description == undefined || description.length === 0
@@ -22,13 +23,34 @@ exports.addExpense = (req,res,next) => {
 }
 
 
-exports.showExpense = (req,res,next)=>{
-    Expense.findAll({where:{userId: req.user.id}})
-    .then(expenses=>{
-       
-        return res.status(200).json({expenses,success:true,user:req.user})
-    })
-}
+exports.showExpense = async (req,res,next)=>{
+    const page= req.query.page || 1 ;
+    let totalitems=0
+    const userId=req.user.id;
+    const expcount=await Expense.count({where:{UserId:userId}})
+    const hasnextpage=items_perpage*page<expcount;
+    const haspreviouspage=page>1;
+    const nextpage=Number(page)+1;
+    const previouspage=Number(page)-1;
+    const lastpage=Math.ceil(expcount/items_perpage)
+    let obj={
+        currentpage:Number(req.query.page),
+        hasnextpage:hasnextpage,
+        haspreviouspage:haspreviouspage,
+        nextpage:nextpage,
+        previouspage:previouspage,
+        lastpage:lastpage
+    }
+  
+  
+  
+  req.user.getExpenses({offset:(page-1)*items_perpage,limit:items_perpage}).then((expenses)=>{
+          res.json({expenses,success:true,obj,user:req.user})
+  
+      }).catch(err=>console.log(err))
+  }
+
+ 
 exports.deleteexpense = (req, res) => {
     const expenseid = req.params.expenseid;
     Expense.destroy({where: { id: expenseid,userId:req.user.id }}).then((noOfrows) => {
@@ -69,7 +91,7 @@ const stringifiedExpense=JSON.stringify(expense);
 const userId=req.user.id;
 const filename=`Expense${userId}/${new Date()}.txt`;
 const fileURL= await uploadToS3(stringifiedExpense,filename);
-console.log('>>>>>',fileURL);
+//console.log('>>>>>',fileURL);
 res.status(200).json({fileURL,success:true})
     }catch(err){
         res.status(500).json({fileURL:'',success:'false'})
@@ -77,8 +99,7 @@ res.status(200).json({fileURL,success:true})
    } 
 function uploadToS3(data,filename){
 const BUCKET_NAME='expensetracker07';
-const IAM_USER_KEY='AKIAZNTZYIBRREJDQS44';
-const IAM_USER_SECRET='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'
+
 
 
 let s3bucket=new AWS.S3({

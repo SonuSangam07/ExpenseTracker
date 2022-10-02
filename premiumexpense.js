@@ -4,7 +4,7 @@ window.addEventListener("DOMContentLoaded", () => {
     axios
       .get("http://localhost:3000/expense/getallusers")
       .then((response) => {
-        //   console.log(response);
+  //console.log(response);
         for (let i = 0; i < response.data.users.length; i++) {
           let userid = response.data.users[i].id;
           let name = response.data.users[i].name;
@@ -13,6 +13,7 @@ window.addEventListener("DOMContentLoaded", () => {
              <span class="span">${userid}</span>
              <span class="span">${name}</span>
              <button type="submit" onclick="seeexp(${userid})" class="span pre">View Expense</button>
+           
              </div>`;
           div.innerHTML += content;
         }
@@ -44,8 +45,8 @@ window.addEventListener("DOMContentLoaded", () => {
         let parent = document.getElementById("popin");
         let content = '';
       //   console.log(parent);
-        console.log(response)
-        for (let i = 0; i < response.data.users.length; i++) {
+        console.log(response.data.users)
+        /*for (let i = 0; i < response.data.users.length; i++) {
           let amount = response.data.users[i].amount;
           let description = response.data.users[i].description;
           let category = response.data.users[i].category;
@@ -54,8 +55,20 @@ window.addEventListener("DOMContentLoaded", () => {
             <span class="popexp">${description}</span>
             <span class="popexp">${category}</span>
             </div>`;
+           
             parent.innerHTML += content;
-          }
+          }*/
+          let amount = response.data.users[0].amount; 
+          let description = response.data.users[0].description;
+          let category = response.data.users[0].category;
+          content = `<div class="mydiv">
+            <span class="popexp">${amount}</span>
+            <span class="popexp">${description}</span>
+            <span class="popexp">${category}</span>
+            </div>`;
+           
+            parent.innerHTML += content;
+          console.log(amount)
   
       });
   }
