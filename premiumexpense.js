@@ -46,7 +46,7 @@ window.addEventListener("DOMContentLoaded", () => {
         let content = '';
       //   console.log(parent);
         console.log(response.data.users)
-        /*for (let i = 0; i < response.data.users.length; i++) {
+      for (let i = 0; i < response.data.users.length; i++) {
           let amount = response.data.users[i].amount;
           let description = response.data.users[i].description;
           let category = response.data.users[i].category;
@@ -57,8 +57,8 @@ window.addEventListener("DOMContentLoaded", () => {
             </div>`;
            
             parent.innerHTML += content;
-          }*/
-          let amount = response.data.users[0].amount; 
+          }
+          /*let amount = response.data.users[0].amount; 
           let description = response.data.users[0].description;
           let category = response.data.users[0].category;
           content = `<div class="mydiv">
@@ -68,7 +68,7 @@ window.addEventListener("DOMContentLoaded", () => {
             </div>`;
            
             parent.innerHTML += content;
-          console.log(amount)
+          console.log(amount)*/
   
       });
   }

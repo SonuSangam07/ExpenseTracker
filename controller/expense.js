@@ -52,6 +52,7 @@ exports.showExpense = async (req,res,next)=>{
 
  
 exports.deleteexpense = (req, res) => {
+
     const expenseid = req.params.expenseid;
     Expense.destroy({where: { id: expenseid,userId:req.user.id }}).then((noOfrows) => {
 if(noOfrows===0){
@@ -85,6 +86,7 @@ exports.showExpensePremium=(req,res,next)=>{
 
    exports.downloadExpense=async(req,res,next)=>{
     try{
+       // console.log(process.env)
 const expense=await req.user.getExpenses();
 //console.log(expense);
 const stringifiedExpense=JSON.stringify(expense);
@@ -100,6 +102,8 @@ res.status(200).json({fileURL,success:true})
 function uploadToS3(data,filename){
 const BUCKET_NAME='expensetracker07';
 
+const IAM_USER_KEY=process.env.IAM_USER_KEY;
+const IAM_USER_SECRET=process.env.IAM_USER_SECRET;
 
 
 let s3bucket=new AWS.S3({

@@ -11,9 +11,7 @@ app.use(cors())
 const sequelize = require('./util/database');
 
 app.use(bodyParser.json());
-const dotenv = require('dotenv')
-
-dotenv.config();
+require("dotenv").config();
 
 const User = require('./models/user')
 const Order = require('./models/orders');
@@ -27,7 +25,8 @@ Order.belongsTo(User);
 
 const userRoute = require('./routes/user')
 const expenseRoute=require('./routes/expense')
-const purchaseRoutes = require('./routes/purchase')
+const purchaseRoutes = require('./routes/purchase');
+const { start } = require('pm2');
 app.use('/purchase',purchaseRoutes)
 app.use('/users',userRoute)
 app.use('/expense',expenseRoute)
